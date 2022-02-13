@@ -1,4 +1,4 @@
-// Copyright (C) 2020 Ilijatech
+// 2020 Baltazarus
 
 #pragma once
 #ifndef __cplusplus
