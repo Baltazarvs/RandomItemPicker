@@ -1,4 +1,4 @@
-// Copyright (C) 2020 Ilijatech
+// 2020 Baltazarus
 
 #include "Application.h"
 
