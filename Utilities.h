@@ -19,7 +19,7 @@
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
-#define LP_CLASS_NAME		"Ilijatech - Random Item Picker"
+#define LP_CLASS_NAME		"Baltazarus - Random Item Picker"
 
 #define I_ERROR_CANNOT_PROCESS_MESSAGE			-0x01
 #define I_ERROR_CANNOT_REGISTER_WCLASS			-0x02
