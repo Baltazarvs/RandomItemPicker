@@ -1,6 +1,5 @@
-// Copyright (C) 2020 Ilijatech
+// 2020 Baltazarus
 
-#pragma once
 #ifndef APP_CLASS
 #define APP_CLASS
 #include "Utilities.h"
