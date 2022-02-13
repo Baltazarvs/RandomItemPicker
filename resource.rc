@@ -1,0 +1,24 @@
+#include "resource.h"
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "RandomPicker.exe.manifest"
+
+IDD_INSERT_ITEM DIALOGEX 0, 0, 271, 28
+STYLE 0x40L | 0x80L | 0x0008L | 0x80000000L | 0x00C00000L | 0x00080000L
+CAPTION "Insert Item"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK", 1, 161, 7, 50, 14
+    PUSHBUTTON      "Cancel", 2, 214, 7, 50, 14
+    EDITTEXT        IDC_EDIT_ITEMTEXT, 7, 7, 152, 14, 0x0080L
+END
+
+IDR_MENUBAR MENU
+BEGIN
+    POPUP "Item"
+    BEGIN
+        MENUITEM "Insert",                      ID_ITEM_INSERT
+        MENUITEM "Clear List",                  ID_ITEM_CLEARLIST
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                        ID_ITEM_EXIT
+    END
+END
