@@ -206,6 +206,7 @@ LRESULT __stdcall Application::WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, L
 				}
 				case ID_ITEM_CLEARLIST:
 				{
+					if(SendMessage(w_MainList, LB_GETCOUNT, 0u, 0u) < 1) break;
 					SendMessageW(w_MainList, LB_RESETCONTENT, 0u, 0u);
 					break;
 				}
