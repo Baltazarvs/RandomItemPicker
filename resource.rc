@@ -36,6 +36,6 @@ CAPTION "About"
 STYLE 0x80L | 0x00080000L | 0x00C00000L | 0x80000000L
 FONT 10, "Arial"
 BEGIN
-	DEFPUSHBUTTON "&OK", 1, 80, 40, 40, 15
-	CTEXT "Created 2021 by Baltazarus.\nUse this program to calculate your\nK/D or K/DA ratio in games.", IDC_STATIC_ABOUT, 10, 10, 180, 25
+	DEFPUSHBUTTON "&OK", 1, 80, 45, 40, 15
+	CTEXT "Created 2021 - 2022 by Baltazarus.\nPick a random item from a list.\nYou can insert, delete and \npick items with given controls.", IDC_STATIC_ABOUT, 10, 10, 180, 35
 END
