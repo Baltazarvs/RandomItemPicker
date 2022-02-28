@@ -2,6 +2,7 @@
 
 CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "RandomPicker.exe.manifest"
 
+// Insert Item Dialog
 IDD_INSERT_ITEM DIALOGEX 0, 0, 271, 28
 STYLE 0x40L | 0x80L | 0x0008L | 0x80000000L | 0x00C00000L | 0x00080000L
 CAPTION "Insert Item"
@@ -12,14 +13,29 @@ BEGIN
     EDITTEXT        IDC_EDIT_ITEMTEXT, 7, 7, 152, 14, 0x0080L
 END
 
+// Menu Bar
 IDR_MENUBAR MENU
 BEGIN
     POPUP "Item"
     BEGIN
         MENUITEM "Insert",                      ID_ITEM_INSERT
-        MENUITEM "Import From File...",         ID_ITEM_LOAD_FROM_FILE
+        MENUITEM "Load From File",              ID_ITEM_LOAD_FROM_FILE
         MENUITEM "Clear List",                  ID_ITEM_CLEARLIST
         MENUITEM SEPARATOR
         MENUITEM "Exit",                        ID_ITEM_EXIT
     END
+	POPUP "&Help"
+	BEGIN
+		MENUITEM "About", 						ID_HELP_ABOUT
+	END
+END
+
+// About Dialog Box
+IDD_ABOUT DIALOG DISCARDABLE 20, 20, 200, 65
+CAPTION "About"
+STYLE 0x80L | 0x00080000L | 0x00C00000L | 0x80000000L
+FONT 10, "Arial"
+BEGIN
+	DEFPUSHBUTTON "&OK", 1, 80, 40, 40, 15
+	CTEXT "Created 2021 by Baltazarus.\nUse this program to calculate your\nK/D or K/DA ratio in games.", IDC_STATIC_ABOUT, 10, 10, 180, 25
 END
