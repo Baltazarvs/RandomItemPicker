@@ -11,6 +11,7 @@
 Application::WClass Application::WClass::WCInstance;
 
 void InitUI(HWND w_Handle, HINSTANCE w_Inst);
+std::vector<std::string> GetItemsFromFile(const char* path, HWND w_Handle);
 
 static HWND w_MainList = nullptr;
 static HWND w_MainInputEdit = nullptr;
@@ -227,6 +228,32 @@ LRESULT __stdcall Application::WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, L
 					DestroyWindow(w_Handle);
 					break;
 				}
+				case ID_ITEM_LOAD_FROM_FILE:
+				{
+					char* path = new char[MAX_PATH];
+					OPENFILENAMEA ofn;
+					memset(&ofn, 0, sizeof(ofn));
+					ofn.lStructSize = sizeof(ofn);
+					ofn.hwndOwner = w_Handle;
+					ofn.lpstrFilter = "Text File\0*.txt\0All Files\0*.*";
+					ofn.nFilterIndex = 1;
+					ofn.lpstrFile = path;
+					ofn.lpstrFile[0] = '\0';
+					ofn.lpstrTitle = "Open File";
+					ofn.nMaxFile = MAX_PATH;
+					ofn.Flags = (OFN_EXPLORER | OFN_PATHMUSTEXIST);
+
+					GetOpenFileNameA(&ofn);
+					
+					std::vector<std::string> lines = ::GetItemsFromFile(path, this->GetHandle());
+					delete[] path;
+
+					if(lines.size() < 1ull)
+						break;
+					for(std::size_t i = 0ull; i < lines.size(); ++i)
+						SendMessage(::w_MainList, LB_ADDSTRING, 0u, reinterpret_cast<LPARAM>(lines[i].c_str()));
+					break;
+				}
 			}
 			break;
 		}
@@ -354,7 +381,7 @@ void InitUI(HWND w_Handle, HINSTANCE w_Inst)
 
 	w_MainList = CreateWindowW(
 		WC_LISTBOXW, nullptr,
-		wStyles | WS_BORDER,
+		wStyles | WS_BORDER | WS_VSCROLL | WS_HSCROLL,
 		0, 0, 0, 0,
 		w_Handle, reinterpret_cast<HMENU>(ID_LISTBOX_MAIN_LIST),
 		nullptr, nullptr
@@ -401,4 +428,24 @@ void InitUI(HWND w_Handle, HINSTANCE w_Inst)
 			SendMessage(GetDlgItem(w_Handle, i), WM_SETFONT, reinterpret_cast<WPARAM>(GetStockObject(DEFAULT_GUI_FONT)), 1u);
 	}
 	return;
+}
+
+std::vector<std::string> GetItemsFromFile(const char* path, HWND w_Handle)
+{
+	std::vector<std::string> linesVec = std::vector<std::string>();
+
+	std::ifstream file;
+	file.open(path, std::ios::in);
+	if(file.is_open())
+	{
+		std::string line;
+		while(std::getline(file, line))
+			linesVec.push_back(line);
+		file.close();
+	}
+	else
+		MessageBoxW(w_Handle, L"Cannot open file.", L"Error", MB_OK | MB_ICONERROR);
+	
+	delete[] path;
+	return linesVec;
 }
