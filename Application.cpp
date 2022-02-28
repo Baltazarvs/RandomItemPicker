@@ -12,6 +12,9 @@ Application::WClass Application::WClass::WCInstance;
 
 void InitUI(HWND w_Handle, HINSTANCE w_Inst);
 std::vector<std::string> GetItemsFromFile(const char* path, HWND w_Handle);
+void DeleteItem(HWND w_Handle);
+
+LRESULT __stdcall WndProc_MainList(HWND w_Handle, UINT Msg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 
 static HWND w_MainList = nullptr;
 static HWND w_MainInputEdit = nullptr;
@@ -105,6 +108,7 @@ LRESULT __stdcall Application::WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, L
 		case WM_CREATE:
 		{
 			InitUI(w_Handle, Application::WClass::GetInstance());
+			SetWindowSubclass(w_MainList, &WndProc_MainList, 0u, 0u);
 			break;
 		}
 		case WM_COMMAND:
@@ -187,25 +191,7 @@ LRESULT __stdcall Application::WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, L
 				}
 				case ID_BUTTON_DELETE_ITEM:
 				{
-					int item_count = SendMessageW(w_MainList, LB_GETCOUNT, 0u, 0u);
-					if (item_count < 1)
-					{
-						MessageBoxA(w_Handle, "Nothing to select, nothing to delete...", "Alert", MB_OK);
-						break;
-					}
-					
-					int selected_count = 0;
-
-					for (int i = 0; i < item_count; ++i)
-					{
-						int sel_index = SendMessageW(w_MainList, LB_GETSEL, static_cast<WPARAM>(i), 0u);
-						selected_count += (sel_index > 0) ? 1 : 0;
-
-						if (sel_index > 0)
-							SendMessageW(w_MainList, LB_DELETESTRING, static_cast<WPARAM>(i), 0u);
-					}
-					if ((selected_count > 0) != true)
-						MessageBoxA(w_Handle, "Select at least one item to delete.", "Alert", MB_OK);
+					::DeleteItem(w_Handle);
 					break;
 				}
 				case ID_ITEM_INSERT:
@@ -448,4 +434,42 @@ std::vector<std::string> GetItemsFromFile(const char* path, HWND w_Handle)
 	
 	delete[] path;
 	return linesVec;
+}
+
+void DeleteItem(HWND w_Handle)
+{
+	int item_count = SendMessageW(w_MainList, LB_GETCOUNT, 0u, 0u);
+	if (item_count < 1)
+	{
+		MessageBoxA(w_Handle, "Nothing to select, nothing to delete...", "Alert", MB_OK);
+		return;
+	}
+					
+	int selected_count = 0;
+	
+	for (int i = 0; i < item_count; ++i)
+	{
+		int sel_index = SendMessageW(w_MainList, LB_GETSEL, static_cast<WPARAM>(i), 0u);
+		selected_count += (sel_index > 0) ? 1 : 0;
+
+		if (sel_index > 0)
+			SendMessageW(w_MainList, LB_DELETESTRING, static_cast<WPARAM>(i), 0u);
+	}
+	if ((selected_count > 0) != true)
+		MessageBoxA(w_Handle, "Select at least one item to delete.", "Alert", MB_OK);
+	return;
+}
+
+LRESULT __stdcall WndProc_MainList(HWND w_Handle, UINT Msg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+{
+	switch(Msg)
+	{
+		case WM_KEYDOWN:
+			if(wParam == VK_DELETE)
+				::DeleteItem(GetParent(w_Handle));
+			break;
+		default:
+			return DefSubclassProc(w_Handle, Msg, wParam, lParam);
+	}
+	return 0;
 }
