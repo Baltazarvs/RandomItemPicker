@@ -240,6 +240,16 @@ LRESULT __stdcall Application::WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, L
 						SendMessage(::w_MainList, LB_ADDSTRING, 0u, reinterpret_cast<LPARAM>(lines[i].c_str()));
 					break;
 				}
+				case ID_HELP_ABOUT:
+				{
+					DialogBox(
+						Application::WClass::GetInstance(),
+						MAKEINTRESOURCE(IDD_ABOUT),
+						w_Handle,
+						reinterpret_cast<DLGPROC>(&Application::DlgProc_About)
+					);
+					break;
+				}
 			}
 			break;
 		}
@@ -326,6 +336,21 @@ LRESULT __stdcall Application::DlgProc_InsertItem(HWND w_Dlg, UINT Msg, WPARAM w
 				EndDialog(w_Dlg, IDCANCEL);
 			break;
 		}
+	}
+	return 0;
+}
+
+LRESULT __stdcall Application::DlgProc_About(HWND w_Dlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+	switch(Msg)
+	{
+		case WM_COMMAND:
+			if(LOWORD(wParam) == IDOK)
+				EndDialog(w_Dlg, IDOK);
+			break;
+		case WM_CLOSE:
+			EndDialog(w_Dlg, 0);
+			break;
 	}
 	return 0;
 }
