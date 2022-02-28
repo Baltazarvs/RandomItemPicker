@@ -1,12 +1,15 @@
 // 2020 Baltazarus
 
 #pragma once
+#define _WIN32_WINNT 0x501
+#define _WIN32_IE 0x0300
+
 #ifndef __cplusplus
 	#error C++ is required for this application!
 #endif
 
-#include <Windows.h>
-#include <CommCtrl.h>
+#include <windows.h>
+#include <commctrl.h>
 #include <vector>
 #include <sstream>
 #include <fstream>
