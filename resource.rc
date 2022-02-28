@@ -17,6 +17,7 @@ BEGIN
     POPUP "Item"
     BEGIN
         MENUITEM "Insert",                      ID_ITEM_INSERT
+        MENUITEM "Import From File...",         ID_ITEM_LOAD_FROM_FILE
         MENUITEM "Clear List",                  ID_ITEM_CLEARLIST
         MENUITEM SEPARATOR
         MENUITEM "Exit",                        ID_ITEM_EXIT
