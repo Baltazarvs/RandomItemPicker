@@ -32,6 +32,8 @@ public:
 	LRESULT __stdcall WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT __stdcall DlgProc_InsertItem(HWND w_Dlg, UINT Msg, WPARAM wParam, LPARAM lParam);
+	static LRESULT __stdcall DlgProc_About(HWND w_Dlg, UINT Msg, WPARAM wParam, LPARAM lParam);
+	
 	HWND GetHandle() const noexcept;
 
 	WTransform GetWindowTransform() const noexcept;
