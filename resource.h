@@ -8,5 +8,5 @@
 #define ID_ITEM_CLEARLIST       40002
 #define ID_ITEM_EXIT            40003
 #define ID_ITEM_LOAD_FROM_FILE  40004
-#define ID_HELP_ABOUT					  40100
-#define IDD_ABOUT						    41000
+#define ID_HELP_ABOUT           40100
+#define IDD_ABOUT               41000
