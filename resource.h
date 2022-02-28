@@ -4,3 +4,4 @@
 #define ID_ITEM_INSERT                  40001
 #define ID_ITEM_CLEARLIST               40002
 #define ID_ITEM_EXIT                    40003
+#define ID_ITEM_LOAD_FROM_FILE          40004
