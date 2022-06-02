@@ -222,7 +222,7 @@ LRESULT __stdcall Application::WndProc(HWND w_Handle, UINT Msg, WPARAM wParam, L
 					memset(&ofn, 0, sizeof(ofn));
 					ofn.lStructSize = sizeof(ofn);
 					ofn.hwndOwner = w_Handle;
-					ofn.lpstrFilter = "Text File\0*.txt\0All Files\0*.*";
+					ofn.lpstrFilter = "Text File\0*.txt\0All Files\0*.*\0";
 					ofn.nFilterIndex = 1;
 					ofn.lpstrFile = path;
 					ofn.lpstrFile[0] = '\0';
